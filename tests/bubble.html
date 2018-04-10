@@ -25,37 +25,58 @@
             <div class="son"></div>
             <div class="brother"></div>
         </div>
+        <script type="application/javascript" src="../lib/fastclick.js"></script>
         <script>
-            var body = document.getElementsByTagName('body')[0]
-            var parent = document.getElementsByClassName('parent')[0]
-            var son = document.getElementsByClassName('son')[0]
-            var brother = document.getElementsByClassName('brother')[0]
+            window.addEventListener('load', function() {
+                // new FastClick(document.body);
+                var body = document.getElementsByTagName('body')[0]
+                var parent = document.getElementsByClassName('parent')[0]
+                var son = document.getElementsByClassName('son')[0]
+                var brother = document.getElementsByClassName('brother')[0]
 
-            body.addEventListener('touchstart', ()=>{
-                console.log('body')
-            }, true)
+                body.addEventListener('touchstart', ()=>{
+                    console.log('body: touchstart 冒泡')
+                }, false)
 
-            parent.addEventListener('touchstart', ()=>{
-                console.log('parent')
-            }, true)
 
-            son.addEventListener('touchstart', ()=>{
-                console.log('son')
-            }, true)
+                body.addEventListener('touchstart', ()=>{
+                    console.log('body: touchstart 捕获')
+                }, true)
 
-            brother.addEventListener('touchstart', (e)=>{
-                console.log('brother2')
-            }, true)
+                parent.addEventListener('touchstart', (e)=>{
+                    console.log('parent 捕获')
+                    // e.stopPropagation()
+                }, true)
 
-            brother.addEventListener('touchstart', (e)=>{
-                console.log('brother')
-                // e.stopPropagation()
-                e.stopImmediatePropagation()
-                
-            }, true)
+                parent.addEventListener('touchstart', ()=>{
+                    console.log('parent 冒泡')
+                }, false)
 
-            
+                son.addEventListener('touchstart', (e)=>{
+                    console.log('son')
+                })
 
+                son.addEventListener('touchend', (e)=>{
+                    console.log('son end')
+                })
+
+
+
+                // brother.addEventListener('click', (e)=>{
+                //     console.log('brother2')
+                // })
+
+                // brother.addEventListener('click', (e)=>{
+                //     console.log('brother')
+                //     // e.stopPropagation()
+                //     e.stopImmediatePropagation()
+                // })
+
+
+                // 重点：false是冒泡，true是捕获
+                // 先捕获在冒泡，如果点击的直接是target，则先注册先执行
+                // touch事件与click事件都注册了，则touch事件结束了再执行click事件，click是要在touchend之后才执行的
+            })
         </script>
     </body>
 </html>
