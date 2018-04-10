@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <title>test</title>
+        <style>
+            .parent{
+                width: 500px;
+                height: 500px;
+                background:silver;
+            }
+            .son {
+                width: 200px;
+                height: 200px;
+                background: gray;
+            } 
+            .brother {
+                width: 100px;
+                height: 100px;
+                margin-top: -50px;
+                background: #fefefe;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="parent">
+            <div class="son"></div>
+            <div class="brother"></div>
+        </div>
+        <script>
+            var body = document.getElementsByTagName('body')[0]
+            var parent = document.getElementsByClassName('parent')[0]
+            var son = document.getElementsByClassName('son')[0]
+            var brother = document.getElementsByClassName('brother')[0]
+
+            body.addEventListener('touchstart', ()=>{
+                console.log('body')
+            }, true)
+
+            parent.addEventListener('touchstart', ()=>{
+                console.log('parent')
+            }, true)
+
+            son.addEventListener('touchstart', ()=>{
+                console.log('son')
+            }, true)
+
+            brother.addEventListener('touchstart', (e)=>{
+                console.log('brother2')
+            }, true)
+
+            brother.addEventListener('touchstart', (e)=>{
+                console.log('brother')
+                // e.stopPropagation()
+                e.stopImmediatePropagation()
+                
+            }, true)
+
+            
+
+        </script>
+    </body>
+</html>
